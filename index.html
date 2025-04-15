@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Flavors of the Philippines</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    :root {
+      --primary-color: #8B0000;
+      --secondary-color: #FFD700;
+      --dark-color: #333;
+      --light-color: #f4f4f4;
+      --success-color: #28a745;
+      --highlight: #FFA500;
+    }
+
+    body {
+      line-height: 1.6;
+      color: var(--dark-color);
+      background-color: #f9f9f9;
+    }
+
+    header {
+      background: linear-gradient(rgba(139, 0, 0, 0.9), rgba(139, 0, 0, 0.7)), url('/api/placeholder/1200/500') center/cover no-repeat;
+      color: #fff;
+      padding: 4rem 0;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--secondary-color);
+      color: var(--dark-color);
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-weight: bold;
+      border: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #e6c300;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Navigation */
+    nav {
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary-color);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo i {
+      margin-right: 0.5rem;
+      font-size: 1.8rem;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+    }
+
+    .nav-item {
+      margin: 0 0.5rem;
+    }
+
+    .nav-link {
+      color: var(--dark-color);
+      text-decoration: none;
+      padding: 1.5rem 1rem;
+      display: block;
+      position: relative;
+      font-weight: 500;
+    }
+
+    .nav-link:hover {
+      color: var(--primary-color);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--primary-color);
+      transition: all 0.3s ease;
+      transform: translateX(-50%);
+    }
+
+    .nav-link:hover::after {
+      width: 80%;
+    }
+
+    .active::after {
+      width: 80%;
+    }
+
+    .hamburger {
+      display: none;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      margin: 5px 0;
+      background: var(--dark-color);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    /* Main Content */
+    main {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    section {
+      margin: 4rem 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-header h2 {
+      font-size: 2.2rem;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-header h2::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -10px;
+      width: 80px;
+      height: 3px;
+      background: var(--secondary-color);
+      transform: translateX(-50%);
+    }
+
+    .section-header p {
+      color: #666;
+      max-width: 800px;
+      margin: 1rem auto 0;
+    }
+
+    /* Featured Dishes */
+    .featured-dishes {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .dish-card {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .dish-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .dish-img {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .dish-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .dish-card:hover .dish-img img {
+      transform: scale(1.05);
+    }
+
+    .dish-tag {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: var(--primary-color);
+      color: #fff;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .dish-content {
+      padding: 1.5rem;
+    }
+
+    .dish-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--dark-color);
+    }
+
+    .dish-description {
+      color: #666;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .dish-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+
+    .dish-origin {
+      color: #666;
+    }
+
+    .dish-rating {
+      color: var(--secondary-color);
+    }
+
+    /* Categories Section */
+    .category-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .category-card {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .category-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .category-img {
+      height: 150px;
+    }
+
+    .category-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .category-content {
+      padding: 1.2rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .category-title {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary-color);
+    }
+
+    .category-description {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .category-link {
+      align-self: flex-start;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .category-link:hover {
+      text-decoration: underline;
+    }
+
+    .category-link span {
+      margin-left: 0.3rem;
+      transition: transform 0.3s ease;
+    }
+
+    .category-link:hover span {
+      transform: translateX(5px);
+    }
+
+    /* Popular Recipes */
+    .recipe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    .recipe-card {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .recipe-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .recipe-img {
+      height: 200px;
+      position: relative;
+    }
+
+    .recipe-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .recipe-time {
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+
+    .recipe-difficulty {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      background: var(--secondary-color);
+      color: var(--dark-color);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .recipe-content {
+      padding: 1.5rem;
+    }
+
+    .recipe-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--dark-color);
+    }
+
+    .recipe-description {
+      color: #666;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .recipe-meta {
+      display: flex;
+      gap: 1rem;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .recipe-meta div {
+      display: flex;
+      align-items: center;
+    }
+
+    .view-more {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(rgba(139, 0, 0, 0.9), rgba(139, 0, 0, 0.9)), url('/api/placeholder/1200/400') center/cover no-repeat fixed;
+      color: #fff;
+      padding: 4rem 0;
+      text-align: center;
+      margin: 4rem 0;
+    }
+
+    .cta-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .cta-section h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    .btn-light {
+      background: #fff;
+      color: var(--primary-color);
+    }
+
+    .btn-light:hover {
+      background: #f4f4f4;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .testimonial {
+      background: #fff;
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .testimonial:last-child {
+      margin-bottom: 0;
+    }
+
+    .testimonial::before {
+      content: '"';
+      font-size: 5rem;
+      font-family: Georgia, serif;
+      color: var(--primary-color);
+      opacity: 0.2;
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      line-height: 1;
+    }
+
+    .testimonial-content {
+      font-style: italic;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+    }
+
+    .author-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 1rem;
+    }
+
+    .author-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .author-info h4 {
+      margin-bottom: 0.2rem;
+      color: var(--dark-color);
+    }
+
+    .author-info p {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    /* Newsletter */
+    .newsletter {
+      background: linear-gradient(to right, var(--primary-color), #cc0000);
+      color: #fff;
+      padding: 3rem 0;
+      text-align: center;
+    }
+
+    .newsletter-content {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .newsletter h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .newsletter p {
+      margin-bottom: 1.5rem;
+    }
+
+    .newsletter-form {
+      display: flex;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .newsletter-input {
+      flex-grow: 1;
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 4px 0 0 4px;
+      font-size: 1rem;
+    }
+
+    .newsletter-btn {
+      background: var(--secondary-color);
+      color: var(--dark-color);
+      border: none;
+      padding: 0 1.5rem;
+      border-radius: 0 4px 4px 0;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .newsletter-btn:hover {
+      background: #e6c300;
+    }
+
+    /* Contact Form Styles */
+    .contact-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .contact-form {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    textarea.form-control {
+      min-height: 150px;
+    }
+
+    .form-btn {
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark-color);
+      color: #fff;
+      padding: 3rem 0 1rem;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .footer-logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .footer-about p {
+      color: #ccc;
+      margin-bottom: 1.5rem;
+    }
+
+    .social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background: var(--secondary-color);
+  color: var(--dark-color);
+  transform: translateY(-3px);
+}
+
+.social-icon {
+  width: 16px;
+  height: 16px;
+}
+
+    .social-link:hover {
+      background: var(--secondary-color);
+      color: var(--dark-color);
+      transform: translateY(-3px);
+    }
+
+    .footer-links h3,
+    .footer-contact h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1.2rem;
+      color: var(--secondary-color);
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-links a {
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--secondary-color);
+    }
+
+    .contact-info {
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: flex-start;
+      color: #ccc;
+    }
+
+    .contact-info i {
+      margin-right: 1rem;
+      color: var(--secondary-color);
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
+      margin-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #999;
+      font-size: 0.9rem;
+    }
+
+    /* Media Queries */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+
+      .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        flex-direction: column;
+        background: #fff;
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-menu.active {
+        left: 0;
+      }
+
+      .nav-item {
+        margin: 0;
+        padding: 0.5rem 0;
+      }
+
+      .nav-link {
+        padding: 0.7rem;
+      }
+
+      .nav-link::after {
+        display: none;
+      }
+
+      header h1 {
+        font-size: 2.5rem;
+      }
+
+      .newsletter-form {
+        flex-direction: column;
+      }
+
+      .newsletter-input {
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+      }
+
+      .newsletter-btn {
+        border-radius: 4px;
+        padding: 0.75rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .section-header h2 {
+        font-size: 1.8rem;
+      }
+
+      .testimonial {
+        padding: 1.5rem;
+      }
+
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+      .social-icon {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+/* Update the social-link class to accommodate images */
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    padding: 8px;
+}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="hero-content">
+      <h1>Savor the Flavors of the Philippines</h1>
+      <p>Discover the rich, diverse, and mouthwatering cuisine of the Pearl of the Orient Seas</p>
+      <a href="#popular-recipes" class="btn">Explore Recipes</a>
+    </div>
+  </header>
+
+  <nav>
+    <div class="nav-container">
+      <a href="#" class="logo">Flavors of the Philippines</a>
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="#" class="nav-link active">Home</a></li>
+        <li class="nav-item"><a href="#categories" class="nav-link">Categories</a></li>
+        <li class="nav-item"><a href="#popular-recipes" class="nav-link">Recipes</a></li>
+        <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section id="about">
+      <div class="section-header">
+        <h2>Filipino Cuisine</h2>
+        <p>Filipino food is a vibrant fusion of Malay, Spanish, Chinese, and American influences, resulting in unique flavors and culinary techniques that have evolved over centuries.</p>
+      </div>
+      <div class="featured-dishes">
+        <div class="dish-card">
+          <div class="dish-img">
+            <img src="adobo.jpg" alt="Adobo">
+            <span class="dish-tag">Signature</span>
+          </div>
+          <div class="dish-content">
+            <h3 class="dish-title">Adobo</h3>
+            <p class="dish-description">A savory stew of meat (usually chicken or pork) marinated in vinegar, soy sauce, garlic, and spices. Often considered the national dish of the Philippines.</p>
+            <div class="dish-meta">
+              <span class="dish-origin">Origin: Nationwide</span>
+              <span class="dish-rating">★★★★★</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dish-card">
+          <div class="dish-img">
+            <img src="sinigang.jpg" alt="Sinigang">
+            <span class="dish-tag">Popular</span>
+          </div>
+          <div class="dish-content">
+            <h3 class="dish-title">Sinigang</h3>
+            <p class="dish-description">A sour soup typically made with tamarind, tomatoes, and various vegetables with pork, beef, fish, or shrimp. Known for its refreshingly tangy flavor.</p>
+            <div class="dish-meta">
+              <span class="dish-origin">Origin: Luzon</span>
+              <span class="dish-rating">★★★★☆</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dish-card">
+          <div class="dish-img">
+            <img src="lechon.jpg" alt="Lechon">
+            <span class="dish-tag">Festive</span>
+          </div>
+          <div class="dish-content">
+            <h3 class="dish-title">Lechon</h3>
+            <p class="dish-description">A whole roasted pig with crispy skin and tender meat. A centerpiece at Filipino celebrations and special occasions, especially popular in Cebu.</p>
+            <div class="dish-meta">
+              <span class="dish-origin">Origin: Cebu</span>
+              <span class="dish-rating">★★★★★</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="categories">
+      <div class="section-header">
+        <h2>Dish Categories</h2>
+        <p>Filipino cuisine offers diverse dishes for every meal and occasion, from hearty breakfast favorites to festive celebration foods.</p>
+      </div>
+      <div class="category-container">
+        <div class="category-card">
+          <div class="category-img">
+            <img src="friedrice.jpg" alt="Rice Dishes">
+          </div>
+          <div class="category-content">
+            <h3 class="category-title">Rice Dishes</h3>
+            <p class="category-description">From everyday staples like sinangag (garlic fried rice) to festive specialties like paella-inspired arroz valenciana.</p>
+            <a href="#" class="category-link">Explore <span>→</span></a>
+          </div>
+        </div>
+
+        <div class="category-card">
+          <div class="category-img">
+            <img src="bulalo.jpg" alt="Soups & Stews">
+          </div>
+          <div class="category-content">
+            <h3 class="category-title">Soups & Stews</h3>
+            <p class="category-description">Comforting soups like bulalo (beef marrow stew) and hearty stews like kaldereta and menudo.</p>
+            <a href="#" class="category-link">Explore <span>→</span></a>
+          </div>
+        </div>
+
+        <div class="category-card">
+          <div class="category-img">
+            <img src="seafoods.jpg" alt="Seafood">
+          </div>
+          <div class="category-content">
+            <h3 class="category-title">Seafood</h3>
+            <p class="category-description">Island-inspired dishes highlighting the Philippines' abundant marine resources, from kinilaw (ceviche) to sinigang na hipon.</p>
+            <a href="#" class="category-link">Explore <span>→</span></a>
+          </div>
+        </div>
+
+        <div class="category-card">
+          <div class="category-img">
+            <img src="halohalo.jpg" alt="Desserts">
+          </div>
+          <div class="category-content">
+            <h3 class="category-title">Desserts & Snacks</h3>
+            <p class="category-description">Sweet treats like halo-halo, bibingka, and colorful kakanin (rice cakes) that satisfy any sweet tooth.</p>
+            <a href="#" class="category-link">Explore <span>→</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="popular-recipes">
+      <div class="section-header">
+        <h2>Popular Recipes</h2>
+        <p>Try these authentic Filipino recipes and bring the flavors of the Philippines to your kitchen.</p>
+      </div>
+      <div class="recipe-grid">
+        <div class="recipe-card">
+          <div class="recipe-img">
+            <img src="adobo1.jpg" alt="Chicken Adobo">
+            <span class="recipe-time">45 mins</span>
+            <span class="recipe-difficulty">Easy</span>
+          </div>
+          <div class="recipe-content">
+            <h3 class="recipe-title">Classic Chicken Adobo</h3>
+            <p class="recipe-description">Learn how to make the quintessential Filipino dish with perfectly balanced flavors of vinegar, soy sauce, and garlic.</p>
+            <div class="recipe-meta">
+              <div>Serves: 4</div>
+              <div>Rating: ★★★★★</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="recipe-card">
+          <div class="recipe-img">
+            <img src="sinigangbaboy.jpg" alt="Sinigang na Baboy">
+            <span class="recipe-time">1 hour</span>
+            <span class="recipe-difficulty">Medium</span>
+          </div>
+          <div class="recipe-content">
+            <h3 class="recipe-title">Sinigang na Baboy</h3>
+            <p class="recipe-description">A hearty and sour pork soup with vegetables that's perfect for rainy days and comforting family meals.</p>
+            <div class="recipe-meta">
+              <div>Serves: 6</div>
+              <div>Rating: ★★★★☆</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="recipe-card">
+          <div class="recipe-img">
+            <img src="pansit.jpg" alt="Pancit Canton">
+            <span class="recipe-time">30 mins</span>
+            <span class="recipe-difficulty">Easy</span>
+          </div>
+          <div class="recipe-content">
+            <h3 class="recipe-title">Pancit Canton</h3>
+            <p class="recipe-description">Stir-fried egg noodles with vegetables and meat or seafood. A birthday celebration staple symbolizing long life.</p>
+            <div class="recipe-meta">
+              <div>Serves: 8</div>
+              <div>Rating: ★★★★☆</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="view-more">
+        <a href="#" class="btn">View More Recipes</a>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-header">
+        <h2>Contact Us</h2>
+        <p>Have questions about Filipino recipes or want to share your culinary experiences? Reach out to us!</p>
+      </div>
+      <div class="contact-container">
+        <div class="contact-form">
+          <div class="form-group">
+            <label for="name" class="form-label">Your Name</label>
+            <input type="text" id="name" class="form-control" placeholder="Enter your name">
+          </div>
+          <div class="form-group">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" id="email" class="form-control" placeholder="Enter your email">
+          </div>
+          <div class="form-group">
+            <label for="subject" class="form-label">Subject</label>
+            <input type="text" id="subject" class="form-control" placeholder="Enter subject">
+          </div>
+          <div class="form-group">
+            <label for="message" class="form-label">Message</label>
+            <textarea id="message" class="form-control" placeholder="Type your message here..."></textarea>
+          </div>
+          <button type="submit" class="btn form-btn">Send Message</button>
+        </div>
+      </div>
+    </section>
+
+
+
+    <footer>
+      <div class="footer-container">
+        <div class="footer-about">
+          <div class="social-links">
+            <a href="https://www.facebook.com/profile.php?id=100079822964938" class="social-link" title="Follow us on Facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="social-icon">
+                <!-- Facebook icon -->
+                <path fill="currentColor" d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/>
+              </svg>
+            </a>
+            <a href="https://www.instagram.com/_eyshikii/" class="social-link" title="Follow us on Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon">
+                <!-- Instagram icon -->
+                <path fill="currentColor" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/>
+              </svg>
+            </a>
+            <a href="https://www.tiktok.com/@eysi_isded?_t=ZS-8vWqWXdn3kS&_r=1" class="social-link" title="Follow us on TikTok">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="social-icon">
+                <!-- TikTok icon -->
+                <path fill="currentColor" d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        
+        <div class="footer-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#categories">Categories</a></li>
+            <li><a href="#popular-recipes">Recipes</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-contact">
+          <h3>Contact Us</h3>
+          <div class="contact-info">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>123 Filipino Food St, Manila, Philippines</span>
+          </div>
+          <div class="contact-info">
+            <i class="fas fa-phone"></i>
+            <span>+63 123 456 7890</span>
+          </div>
+          <div class="contact-info">
+            <i class="fas fa-envelope"></i>
+            <span>info@flavorsofphilippines.com</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        &copy; 2025 Flavors of the Philippines. All rights reserved.
+      </div>
+    </footer>
